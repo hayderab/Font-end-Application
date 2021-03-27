@@ -1,0 +1,57 @@
+
+[
+    {
+        "dogID": 1,
+        "name": "elon",
+        "dogType": "bulldog",
+        "dateAdded": "2021-03-13T01:13:13.000Z",
+        "imageURL": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        "isAvailable": 1,
+        "shelterID": 1
+    },
+    {
+        "dogID": 2,
+        "name": "lucy",
+        "dogType": "k9",
+        "dateAdded": "2021-03-13T01:13:13.000Z",
+        "imageURL": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        "isAvailable": 0,
+        "shelterID": 2
+    },
+    {
+        "dogID": 3,
+        "name": "Charlie",
+        "dogType": "bulldog",
+        "dateAdded": "2021-03-19T22:35:32.000Z",
+        "imageURL": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        "isAvailable": 1,
+        "shelterID": 1
+    },
+    {
+        "dogID": 4,
+        "name": "JHOONY",
+        "dogType": "Bull DOG",
+        "dateAdded": "2021-03-19T22:35:32.000Z",
+        "imageURL": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        "isAvailable": 0,
+        "shelterID": 2
+    },
+    {
+        "dogID": 5,
+        "name": "Serial",
+        "dogType": "K99",
+        "dateAdded": "2021-03-19T22:36:12.000Z",
+        "imageURL": null,
+        "isAvailable": 1,
+        "shelterID": 1
+    },
+    {
+        "dogID": 6,
+        "name": "Alpha",
+        "dogType": "Uknow",
+        "dateAdded": "2021-03-19T22:36:12.000Z",
+        "imageURL": null,
+        "isAvailable": 0,
+        "shelterID": 2
+    }
+]

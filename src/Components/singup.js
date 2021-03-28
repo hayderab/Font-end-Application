@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -12,9 +12,11 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import React, {useState, useEffect} from 'react'
+import { withStyles } from '@material-ui/core/styles';
+import { Form, Input, Button, Checkbox } from 'antd';
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => ({
   root: {
     height: '100vh',
   },
@@ -43,11 +45,75 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+});
 
-export default function SignInSide() {
-  const classes = useStyles();
+const formItemLayout = {
+  labelCol: { xs: { span: 24 }, sm: { span: 6 } },
+  wrapperCol: { xs: { span: 24 }, sm: { span: 12 } }
+};
+const tailFormItemLayout = {
+  wrapperCol: { xs: { span: 24, offset: 0 }, sm: { span: 16, offset: 6 } },
+};
 
+const emailRules = [
+  {type: 'email', message: 'The input is not valid E-mail!'},
+  {required: true, message: 'Please input your E-mail!' }
+];
+
+const firstName = [
+{ required:true, message: 'First Name' }
+];
+const lastName = [
+{ required:true, message: 'Last Name' }
+];
+const passwordRules = [
+  { required: true, message: 'Please input your password!' }
+];
+const sigupCode = [
+{ message: 'Employee Only' }
+];
+const confirmRules = [
+    { required: true, message: 'Please confirm your password!' },
+    // rules can include function handlers in which you can apply additional logic
+    ({ getFieldValue }) => ({
+        validator(rule, value) {
+            if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+            }
+            return Promise.reject('The two passwords that you entered do not match!');
+        }
+    })
+];
+
+class  Login extends  React.Component{
+  constructor(props) {
+    super(props);
+    this.onFinish = this.onFinish.bind(this);
+   }
+
+   onFinish = (values) => {
+    console.log('Received values of form: ', values);
+    const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
+    fetch('http://localhost:5000/api/users',{
+      method: 'POST',
+      body:JSON.stringify(data), 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // TODO: display success message and/or redirect
+        console.log(data);
+        alert("User added")
+    })
+    .catch(error => {
+        // TODO: show nicely formatted error message and clear form
+        alert(`Error: error}`);
+    });  
+  };
+render(){
+  const { classes } = this.props;
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -60,92 +126,47 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
            Register
           </Typography>
-          <form className={classes.form} noValidate>
-          <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="firstName"
-              label="First Name"
-              name="firstname"
-              autoComplete="firstName"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="LastName"
-              label="Last Name "
-              name="lastname"
-              autoComplete="LastName"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="signupCode"
-              label="Signup Code"
-              name="singupcode"
-              autoComplete="sigupcode"
-              autoFocus
-            />
-          <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Register 
-            </Button>
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
-            <Box mt={5}>
-            </Box>
-          </form>
+              <Form {...formItemLayout} className={classes.form} name="register" onFinish={this.onFinish} scrollToFirstError >
+          <Form.Item name="firstName" label="First Name" rules={firstName} >
+              <Input />
+          </Form.Item>
+            
+          <Form.Item name="lastName" label="Last Name" rules={lastName} >
+              <Input />
+          </Form.Item>
+
+          <Form.Item name="email" label="E-mail" rules={emailRules} >
+              <Input />
+          </Form.Item>
+          <Form.Item name="sigupcode" label="Sign-up Code" rules={sigupCode} hasFeedback >
+              <Input />
+          </Form.Item>
+          <Form.Item name="password" label="Password" rules={passwordRules} hasFeedback >
+              <Input.Password />
+          </Form.Item>
+        
+
+          { <Form.Item name="confirm" label="Confirm Password" dependencies={['password']}
+              hasFeedback rules={confirmRules}>
+              <Input.Password />
+          </Form.Item> } 
+
+          {/* <Form.Item name="username" label="Username" rules={usernameRules} >
+              <Input />
+          </Form.Item> */}
+
+          <Form.Item {...tailFormItemLayout} >
+              <Button type="primary" htmlType="submit">
+                  Register
+              </Button>
+          </Form.Item>
+        </Form>
         </div>
       </Grid>
     </Grid>
   );
 }
+  
+  
+}
+export default withStyles(useStyles)(Login);

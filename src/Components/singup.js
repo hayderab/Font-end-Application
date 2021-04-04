@@ -1,20 +1,21 @@
-// import React from 'react';
+import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 // import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 // import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
+// import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import React, {useState, useEffect} from 'react'
+// import { makeStyles } from '@material-ui/core/styles';
+// import React, {useState, useEffect} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Form, Input, Button, Checkbox } from 'antd';
+import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 const useStyles = (theme) => ({
   root: {
@@ -92,6 +93,7 @@ class  Login extends  React.Component{
    }
 
    onFinish = (values) => {
+  
     console.log('Received values of form: ', values);
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
     fetch('http://localhost:5000/api/users',{
@@ -105,6 +107,11 @@ class  Login extends  React.Component{
     .then(data => {
         // TODO: display success message and/or redirect
         console.log(data);
+            // <Route path='/signin'  component={login}/>
+        // <Route exact path="/">
+        <Redirect to="/" />
+        // </Route>
+        window.location.assign('/')
         alert("User added")
     })
     .catch(error => {
@@ -144,7 +151,6 @@ render(){
           <Form.Item name="password" label="Password" rules={passwordRules} hasFeedback >
               <Input.Password />
           </Form.Item>
-        
 
           { <Form.Item name="confirm" label="Confirm Password" dependencies={['password']}
               hasFeedback rules={confirmRules}>

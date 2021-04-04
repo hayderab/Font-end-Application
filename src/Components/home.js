@@ -4,20 +4,22 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
 import { PageHeader } from 'antd';
-
 import { EditOutlined, SettingOutlined } from '@ant-design/icons';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-
+import { Layout, Menu, Breadcrumb } from 'antd';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import DynamicGridLayout from "./egridlayout";
+// import DynamicGridLayout from "./egridlayout";
+import GridView from "./gridView";
+
 // import Bar from "./searchbar.js";
 
+const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
 
 
@@ -34,72 +36,24 @@ const home =  () => {
       <header className="App-header">
         {/* <Bar /> */}
         {/* {PostCard} */}
-        <DynamicGridLayout />
-      </header>
-      {/* <React.Fragment>
-
-      <CssBaseline /> */}
-
-      {/* <Container maxWidth="sm" Shadow={3}> */}
-        {/* <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} /> */}
        
+      </header>
+      <Layout className="layout">
+      <React.Fragment    >
 
-      {/* </Container> */}
+          <CssBaseline />
+            <Container maxWidth="fixed">
+            <h1>Welcome</h1>
 
-    {/* </React.Fragment> */}
-
-      {/* <Card
-        style={{ width: 300 }}
-        cover={
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          />
-        }
-        actions={[
-          <SettingOutlined key="setting" />,
-          <EditOutlined key="edit" />,
-          <FavoriteIcon />
-
-        //   <IconButton aria-label="add to favorites">
-        //   <FavoriteIcon />
-        // </IconButton>
-
-        ]}
-      >
-        {/* <Meta
-          title="Card title"
-          description="This is the description"
-        /> */}
-      {/* </Card> } */}
+            <GridView />
+              {/* {<DynamicGridLayout/>} */}
+          </Container >
+      </React.Fragment>
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+    </Layout>
     </div>
 
-    //-----------------
-      //   <Card
-      //   style={{ width: 300 }}
-      //   cover={
-      //     <img
-      //       alt="example"
-      //       src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-      //     />
-      //   }
-      //   actions={[
-      //     <SettingOutlined key="setting" />,
-      //     <EditOutlined key="edit" />,
-      //     <FavoriteIcon />
-
-      //   //   <IconButton aria-label="add to favorites">
-      //   //   <FavoriteIcon />
-      //   // </IconButton>
-
-      //   ]}
-      // >
-      //   {/* <Meta
-      //     title="Card title"
-      //     description="This is the description"
-      //   /> */}
-      // </Card>
-    //--------------
+    
   );
 }
 

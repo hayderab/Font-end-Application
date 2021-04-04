@@ -15,8 +15,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 
 import { Form, Input, Button, Checkbox } from 'antd';
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import login from "./login";
+import Home  from "./home";
+
+import Cookies from 'universal-cookie';
+ 
+
+
 
 // add some layout to keep the form organised on different screen sizes
 // const formItemLayout = {
@@ -188,35 +194,48 @@ const useStyles = (theme) => ({
 //   const onFinishFailed = (errorInfo) => {
 //     console.log('Failed:', errorInfo);
 //   };
-  
+
+// const cookies = new Cookies();
+// console.log(cookies.get('myCat'))
+
+
+const UserContext = React.createContext();
+
 class LoginForm extends React.Component {
     constructor(props) {
       super(props);
-      this.onFinish = this.onFinish.bind(this);
+      this.login  = this.login.bind(this);
   }
+   static contextType = UserContext;
 
-  onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    login(values) {
+    // console.log('Received values of form: ', values);
+    const {email, password} = values;    // const auth_token = "";
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
-    fetch('http://localhost:5000/api/auth/',{
+    // console.log(`logging in email: ${email}`)
+
+    fetch('http://localhost:5000/api/auth',{
+      credentials: 'include',
       method: 'POST',
       body:JSON.stringify(data), 
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNWZkMWM5ZWNkMDgyNDYxYzZhYjdmZCIsImlhdCI6MTYxNjg5MjM2MSwiZXhwIjoxNjE2ODk2MDYxfQ.8kCNSSLAi4rkZp1CgBmL8Rc74iFtDtzuivU1jsna7v4"
       }
     })
+    // .then(response => response.status())
     .then(response => response.json())
-    .then(data => {
-        // TODO: display success message and/or redirect
-        console.log(data);
-        // <Route path='/signin'  component={login}/>
-        alert("User Loged in ...")
+    .then(user => {
+        console.log('Logged in successfull');
+        window.location.assign('/')
+
+        console.log(user);
+        // this.context.login(data);
     })
     .catch(error => {
-        // TODO: show nicely formatted error message and clear form
-        alert(`Error: error}`);
-    });  
+        // TODO: show nicely formatted error message
+
+        console.log('Login failed');
+    });
   };
 
 
@@ -234,7 +253,7 @@ class LoginForm extends React.Component {
           <Typography component="h1" variant="h5">
            Login
           </Typography>
-              <Form {...formItemLayout} className={classes.form} name="register" onFinish={this.onFinish} scrollToFirstError >
+              <Form {...formItemLayout} name="register" className={classes.form} onFinish={this.login} scrollToFirstError >
 
           <Form.Item name="email" label="E-mail" rules={emailRules} >
               <Input />

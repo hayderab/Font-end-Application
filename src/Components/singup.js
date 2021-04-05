@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 // import React, {useState, useEffect} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Form, Input, Button, Checkbox } from 'antd';
-import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 const useStyles = (theme) => ({
   root: {
@@ -57,122 +57,114 @@ const tailFormItemLayout = {
 };
 
 const emailRules = [
-  {type: 'email', message: 'The input is not valid E-mail!'},
-  {required: true, message: 'Please input your E-mail!' }
+  { type: 'email', message: 'The input is not valid E-mail!' },
+  { required: true, message: 'Please input your E-mail!' }
 ];
 
 const firstName = [
-{ required:true, message: 'First Name' }
+  { required: true, message: 'First Name' }
 ];
 const lastName = [
-{ required:true, message: 'Last Name' }
+  { required: true, message: 'Last Name' }
 ];
 const passwordRules = [
   { required: true, message: 'Please input your password!' }
 ];
 const sigupCode = [
-{ message: 'Employee Only' }
+  { message: 'Employee Only' }
 ];
 const confirmRules = [
-    { required: true, message: 'Please confirm your password!' },
-    // rules can include function handlers in which you can apply additional logic
-    ({ getFieldValue }) => ({
-        validator(rule, value) {
-            if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-            }
-            return Promise.reject('The two passwords that you entered do not match!');
-        }
-    })
+  { required: true, message: 'Please confirm your password!' },
+  // rules can include function handlers in which you can apply additional logic
+  ({ getFieldValue }) => ({
+    validator(rule, value) {
+      if (!value || getFieldValue('password') === value) {
+        return Promise.resolve();
+      }
+      return Promise.reject('The two passwords that you entered do not match!');
+    }
+  })
 ];
 
-class  Login extends  React.Component{
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.onFinish = this.onFinish.bind(this);
-   }
+  }
 
-   onFinish = (values) => {
-  
+  onFinish = (values) => {
+
     console.log('Received values of form: ', values);
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
-    fetch('http://localhost:5000/api/users',{
+    fetch('http://localhost:5000/api/users', {
       method: 'POST',
-      body:JSON.stringify(data), 
+      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
         // TODO: display success message and/or redirect
         console.log(data);
-            // <Route path='/signin'  component={login}/>
+        // <Route path='/signin'  component={login}/>
         // <Route exact path="/">
         <Redirect to="/" />
         // </Route>
         window.location.assign('/')
         alert("User added")
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         // TODO: show nicely formatted error message and clear form
         alert(`Error: error}`);
-    });  
+      });
   };
-render(){
-  const { classes } = this.props;
-  return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-           Register
+  render() {
+    const { classes } = this.props;
+    return (
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Register
           </Typography>
-              <Form {...formItemLayout} className={classes.form} name="register" onFinish={this.onFinish} scrollToFirstError >
-          <Form.Item name="firstName" label="First Name" rules={firstName} >
-              <Input />
-          </Form.Item>
-            
-          <Form.Item name="lastName" label="Last Name" rules={lastName} >
-              <Input />
-          </Form.Item>
-
-          <Form.Item name="email" label="E-mail" rules={emailRules} >
-              <Input />
-          </Form.Item>
-          <Form.Item name="sigupcode" label="Sign-up Code" rules={sigupCode} hasFeedback >
-              <Input />
-          </Form.Item>
-          <Form.Item name="password" label="Password" rules={passwordRules} hasFeedback >
-              <Input.Password />
-          </Form.Item>
-
-          { <Form.Item name="confirm" label="Confirm Password" dependencies={['password']}
-              hasFeedback rules={confirmRules}>
-              <Input.Password />
-          </Form.Item> } 
-
-          {/* <Form.Item name="username" label="Username" rules={usernameRules} >
-              <Input />
-          </Form.Item> */}
-
-          <Form.Item {...tailFormItemLayout} >
-              <Button type="primary" htmlType="submit">
+            <Form {...formItemLayout} className={classes.form} name="register" onFinish={this.onFinish} scrollToFirstError >
+              <Form.Item name="firstName" label="First Name" rules={firstName} >
+                <Input />
+              </Form.Item>
+              <Form.Item name="lastName" label="Last Name" rules={lastName} >
+                <Input />
+              </Form.Item>
+              <Form.Item name="email" label="E-mail" rules={emailRules} >
+                <Input />
+              </Form.Item>
+              <Form.Item name="sigupcode" label="Sign-up Code" rules={sigupCode} hasFeedback >
+                <Input />
+              </Form.Item>
+              <Form.Item name="password" label="Password" rules={passwordRules} hasFeedback >
+                <Input.Password />
+              </Form.Item>
+              {<Form.Item name="confirm" label="Confirm Password" dependencies={['password']}
+                hasFeedback rules={confirmRules}>
+                <Input.Password />
+              </Form.Item>}
+              <Form.Item {...tailFormItemLayout} >
+                <Button type="primary" htmlType="submit">
                   Register
               </Button>
-          </Form.Item>
-        </Form>
-        </div>
+              </Form.Item>
+            </Form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
-  );
-}
-  
-  
+    );
+  }
+
+
 }
 export default withStyles(useStyles)(Login);

@@ -17,7 +17,7 @@ import Container from '@material-ui/core/Container';
 // import DynamicGridLayout from "./egridlayout";
 import GridView from "./gridView";
 
-import SearchBar from "./searchbar.js";
+import SearchBar from "./searchbar";
 
 const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
@@ -40,7 +40,7 @@ const home =  () => {
       </header>
       <Layout className="layout">
       <React.Fragment    >
-      <SearchBar/>
+      {/* <SearchBar/> */}
 
           <CssBaseline />
             <Container maxWidth="fixed">

@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 // import { makeStyles } from '@material-ui/core/styles';
 // import React, {useState, useEffect} from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox,Select } from 'antd';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 const useStyles = (theme) => ({
@@ -111,7 +111,7 @@ class Login extends React.Component {
         // <Route exact path="/">
         <Redirect to="/" />
         // </Route>
-        window.location.assign('/')
+        window.location.assign('/login')
         alert("User added")
       })
       .catch(error => {
@@ -142,6 +142,15 @@ class Login extends React.Component {
               </Form.Item>
               <Form.Item name="email" label="E-mail" rules={emailRules} >
                 <Input />
+              </Form.Item>
+              <Form.Item name="location" label="Select">
+                            <Select>
+                                <Select.Option value="Coventry">Coventry</Select.Option>
+                                <Select.Option value="London">London</Select.Option>
+                                <Select.Option value="Birmingham">Birmingham</Select.Option>
+                                <Select.Option value="Luton">Luton</Select.Option>
+                                <Select.Option value="Bradford">Bradford</Select.Option>
+                            </Select>
               </Form.Item>
               <Form.Item name="sigupcode" label="Sign-up Code" rules={sigupCode} hasFeedback >
                 <Input />

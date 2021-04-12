@@ -7,7 +7,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 // import { makeStyles } from '@material-ui/core/styles';
 // import IconButton from '@material-ui/core/IconButton';
 import { Modal, Button, Form, Space, Select, Input, InputNumber } from 'antd';
-import React, { useState } from 'react';
+import UserContext from '../contexts/user';
+
+import React, { useState, Context} from 'react';
 
 const { Meta } = Card;
 
@@ -28,15 +30,7 @@ const validateMessages = {
 };
 
 
-function status(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    return new Promise((resolve, reject) => {
-      return reject(response);
-    });
-  }
-}
+
 
 class CardView extends React.Component {
   state = { visible: false };
@@ -47,6 +41,8 @@ class CardView extends React.Component {
       show: false,
     };
   }
+
+  static contextType = UserContext;
 
 
   showModal = () => {
@@ -108,66 +104,193 @@ class CardView extends React.Component {
 
 
   render() {
-    return (
-      <div className="site-card-border-less-wrapper">
-        <Card title="Card title" hoverable bordered={false}
+    const loggedIn  = this.context.user.loggedIn;
+    const sigupCode = this.context.user.sigupcode;
 
-          style={{ width: 300 }}
-          cover={
-            <img
-              onClick={this.clickCard}
-              alt="example"
-              src="https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" />
+     if(!loggedIn){
+      return (
+        <div className="site-card-border-less-wrapper">
+          <Card title="Card title" hoverable bordered={false}
+  
+            style={{ width: 300 }}
+            cover={
+              <img
+                onClick={this.clickCard}
+                alt="example"
+                src="https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" />
+  
+  
+            }
+            actions={[
+              // <SettingOutlined key="setting" />,
+              // <EditOutlined key="edit" onClick={this.showModal} />,
+              <FavoriteIcon key="fav" />
+  
+              // <EllipsisOutlined key="ellipsis" />,
+            ]}
+          >
+            <h1>{this.props.name}</h1>
+            <p>{this.props.type}</p>
+            <p>{this.props.location}</p>
+            <p>{this.props.avilable.toString()}</p>
+            <p>{this.props.dateUpdated}</p>
+  
+            <>
+              <Modal title="Update Dogs" visible={this.state.visible} onOk={this.hideModal} onCancel={this.hideModal}>
+                <Form {...layout} name="nest-messages" onFinish={this.onFinish} validateMessages={validateMessages}>
+                  <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name="type" label="Type" rules={[{ type: "string" }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name="location" label="Select">
+                    <Select>
+                      <Select.Option value="Coventry">Coventry</Select.Option>
+                      <Select.Option value="London">London</Select.Option>
+                      <Select.Option value="Birmingham">Birmingham</Select.Option>
+                      <Select.Option value="Luton">Luton</Select.Option>
+                      <Select.Option value="Bradford">Bradford</Select.Option>
+                    </Select>
+                  </Form.Item>
+                  <Form.Item name="avilable" label="Avilable" rules={[{ type: "string" }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                    <Button type="primary" htmlType="submit"  >
+                      Submit
+          </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
+            </>
+          </Card>
+        </div>
+  
+      );
+     } else if(loggedIn == true && sigupCode == true){
+      return (
+        <div className="site-card-border-less-wrapper">
+          <Card title="Card title" hoverable bordered={false}
+  
+            style={{ width: 300 }}
+            cover={
+              <img
+                onClick={this.clickCard}
+                alt="example"
+                src="https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" />
+  
+  
+            }
+            actions={[
+              <SettingOutlined key="setting" />,
+              <EditOutlined key="edit" onClick={this.showModal} />,
+              <FavoriteIcon key="fav" />
+  
+              // <EllipsisOutlined key="ellipsis" />,
+            ]}
+          >
+            <h1>{this.props.name}</h1>
+            <p>{this.props.type}</p>
+            <p>{this.props.location}</p>
+            <p>{this.props.avilable.toString()}</p>
+            <p>{this.props.dateUpdated}</p>
+  
+            <>
+              <Modal title="Update Dogs" visible={this.state.visible} onOk={this.hideModal} onCancel={this.hideModal}>
+                <Form {...layout} name="nest-messages" onFinish={this.onFinish} validateMessages={validateMessages}>
+                  <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name="type" label="Type" rules={[{ type: "string" }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name="location" label="Select">
+                    <Select>
+                      <Select.Option value="Coventry">Coventry</Select.Option>
+                      <Select.Option value="London">London</Select.Option>
+                      <Select.Option value="Birmingham">Birmingham</Select.Option>
+                      <Select.Option value="Luton">Luton</Select.Option>
+                      <Select.Option value="Bradford">Bradford</Select.Option>
+                    </Select>
+                  </Form.Item>
+                  <Form.Item name="avilable" label="Avilable" rules={[{ type: "string" }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                    <Button type="primary" htmlType="submit"  >
+                      Submit
+          </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
+            </>
+          </Card>
+        </div>
+  
+      );
+     }
+     return(
+        <div className="site-card-border-less-wrapper">
+          <Card title="Card title" hoverable bordered={false}
+  
+            style={{ width: 300 }}
+            cover={
+              <img
+                onClick={this.clickCard}
+                alt="example"
+                src="https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" />
+  
+            }
+            actions={[
+              <SettingOutlined key="setting" />,
+              // <EditOutlined key="edit" onClick={this.showModal} />,
+              <FavoriteIcon key="fav" />
+  
+              // <EllipsisOutlined key="ellipsis" />,
+            ]}
+          >
+            <h1>{this.props.name}</h1>
+            <p>{this.props.type}</p>
+            <p>{this.props.location}</p>
+            <p>{this.props.avilable.toString()}</p>
+            <p>{this.props.dateUpdated}</p>
+            <>
+              <Modal title="Update Dogs" visible={this.state.visible} onOk={this.hideModal} onCancel={this.hideModal}>
+                <Form {...layout} name="nest-messages" onFinish={this.onFinish} validateMessages={validateMessages}>
+                  <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name="type" label="Type" rules={[{ type: "string" }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item name="location" label="Select">
+                    <Select>
+                      <Select.Option value="Coventry">Coventry</Select.Option>
+                      <Select.Option value="London">London</Select.Option>
+                      <Select.Option value="Birmingham">Birmingham</Select.Option>
+                      <Select.Option value="Luton">Luton</Select.Option>
+                      <Select.Option value="Bradford">Bradford</Select.Option>
+                    </Select>
+                  </Form.Item>
+                  <Form.Item name="avilable" label="Avilable" rules={[{ type: "string" }]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                    <Button type="primary" htmlType="submit"  >
+                      Submit
+          </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
+            </>
+          </Card>
+        </div>
+  
+      );
+     
 
-
-          }
-          actions={[
-            <SettingOutlined key="setting" />,
-            <EditOutlined key="edit" onClick={this.showModal} />,
-            <FavoriteIcon key="fav" />
-
-            // <EllipsisOutlined key="ellipsis" />,
-          ]}
-        >
-          <h1>{this.props.name}</h1>
-          <p>{this.props.type}</p>
-          <p>{this.props.location}</p>
-          <p>{this.props.avilable.toString()}</p>
-          <p>{this.props.dateUpdated}</p>
-
-          <>
-            <Modal title="Update Dogs" visible={this.state.visible} onOk={this.hideModal} onCancel={this.hideModal}>
-              <Form {...layout} name="nest-messages" onFinish={this.onFinish} validateMessages={validateMessages}>
-                <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-                  <Input />
-                </Form.Item>
-                <Form.Item name="type" label="Type" rules={[{ type: "string" }]}>
-                  <Input />
-                </Form.Item>
-                <Form.Item name="location" label="Select">
-                  <Select>
-                    <Select.Option value="Coventry">Coventry</Select.Option>
-                    <Select.Option value="London">London</Select.Option>
-                    <Select.Option value="Birmingham">Birmingham</Select.Option>
-                    <Select.Option value="Luton">Luton</Select.Option>
-                    <Select.Option value="Bradford">Bradford</Select.Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item name="avilable" label="Avilable" rules={[{ type: "string" }]}>
-                  <Input />
-                </Form.Item>
-                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                  <Button type="primary" htmlType="submit"  >
-                    Submit
-        </Button>
-                </Form.Item>
-              </Form>
-            </Modal>
-          </>
-        </Card>
-      </div>
-
-    );
+   
   }
 
 }

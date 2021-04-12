@@ -1,17 +1,14 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import {withStyles } from '@material-ui/core/styles';
+
 import { Input, Space } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
-
+import GridView from "./gridView"
+import Grid from 'antd/lib/card/Grid';
 const { Search } = Input;
-const useStyles = makeStyles((theme) => ({
+const useStyles = (theme) => ({
   root: {
     flexGrow: 1,
     float:"right",
@@ -27,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
-}));
+});
 
 const suffix = (
   <AudioOutlined
@@ -38,34 +35,39 @@ const suffix = (
     }}
   />
 );
-export default function SearchAppBar() {
-  const classes = useStyles();
-  const onSearch = value => console.log(value);
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-       
- 
-      </AppBar>
-
-      <Toolbar>
-      {/* <Typography className={classes.title} variant="h6" noWrap>
-           Dogs Sanctuary
-          </Typography> */}
-        <Space direction="vertical" float="right">
-        <Search
-          placeholder="input search text"
-          allowClear
-          enterButton="Search"
-          size="large"
-          onSearch={onSearch}
-        />
-         </Space>
-        </Toolbar>
+class SearchBar extends React.Component {
 
 
-    </div>
-
-  );
+  constructor(props) {
+    super(props);
+    this.state = {
+         value:0
+        };
+    }
+    
+  onSearch = value => {
+    console.log(value);
+    value = value;
+  }
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="static"> 
+        </AppBar>
+        <Toolbar>
+          <Space direction="vertical" float="right">
+          <Search placeholder="input search text" allowClear enterButton="Search" size="large"onSearch={this.onSearch}
+          />
+           </Space>
+          </Toolbar>
+      </div>
+  
+    );
+    
+  }
+  
 }
+
+export default withStyles(useStyles)(SearchBar);

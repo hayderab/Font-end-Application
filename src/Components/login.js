@@ -2,26 +2,19 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 // import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-// import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-
 import { Form, Input, Button, Checkbox } from 'antd';
-import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import login from "./login";
 import Home  from "./home";
+import UserContext from '../contexts/user';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import Cookies from 'universal-cookie';
  
-
 
 
 // add some layout to keep the form organised on different screen sizes
@@ -199,13 +192,15 @@ const useStyles = (theme) => ({
 // console.log(cookies.get('myCat'))
 
 
-const UserContext = React.createContext();
 
 class LoginForm extends React.Component {
     constructor(props) {
       super(props);
       this.login  = this.login.bind(this);
   }
+
+  state = {redirect: null}
+
    static contextType = UserContext;
 
     login(values) {
@@ -223,17 +218,20 @@ class LoginForm extends React.Component {
       }
     })
     // .then(response => response.status())
-    .then(response => response.json())
+    // .then(response => response.json())
     .then(user => {
-        console.log('Logged in successfull');
-        window.location.assign('/')
-
-        console.log(user);
-        // this.context.login(data);
+        // window.location.assign('/')
+        if(user.status == 400){
+          alert("invalide credientials")
+        }
+        else{
+          this.setState({redirect:'/'});
+          console.log(user.sigupcode);
+          this.context.login(user);
+        }
     })
     .catch(error => {
         // TODO: show nicely formatted error message
-
         console.log('Login failed');
     });
   };
@@ -241,6 +239,9 @@ class LoginForm extends React.Component {
 
   render() {
     const { classes } = this.props;
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+      }  
     return (
       <Grid container component="main" className={classes.root}>
       <CssBaseline />

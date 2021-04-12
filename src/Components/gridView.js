@@ -1,12 +1,12 @@
 import React from 'react';
 // import { Col, Row ,Space} from 'antd';
 import PostCard from './cardview';
-import { Pagination, Table, Button, Space, Col, Row, Input } from 'antd';
+import { Pagination, Switch, Button, Space, Col, Row, Input } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { LocalConvenienceStoreOutlined, PartyModeSharp } from '@material-ui/icons';
 import SearchBar from "./searchbar.js";
+import { instanceOf } from 'prop-types';
 
 const { Search } = Input;
 
@@ -37,8 +37,10 @@ class GridView extends React.Component {
   // pageSatate = { page: 0 };
 
 
+
   constructor(props) {
     super(props);
+
     this.state = {
       posts: [],
       current: 0,
@@ -46,9 +48,9 @@ class GridView extends React.Component {
       serchValue: "",
       prevPage:1,
       prevValue:"",
+      avilable:true,
       filteredInfo: null,
       sortedInfo: null,
-
     };
 
   }
@@ -60,16 +62,13 @@ class GridView extends React.Component {
       sortedInfo: sorter,
     });
   };
-
   onSearch = value => {
     this.componentDidMount(value, this.state.prevPage)
     this.setState({
-        prevValue:value
-
+        prevValue:value,
     });
 
   };
-
   onChange = page => {
     this.componentDidMount(this.state.prevValue, page)
 
@@ -81,45 +80,49 @@ class GridView extends React.Component {
       prevPage: page
     });
   };
-
-
   clearFilters = () => {
-    this.setState({ filteredInfo: null });
+    this.setState({ avilable: "true" });
+    this.componentDidMount();
   };
-
   clearAll = () => {
     this.setState({
       filteredInfo: null,
       sortedInfo: null,
     });
   };
-
-
   checkIfAvilable = () => {
-    console.log(this.state.sortedInfo.avilable)
+    // console.log(this.state.avilable)
+
+    this.componentDidMount(this.state.prevValue, this.state.prevPage, this.state.avilable);
+
     this.setState({
-      sortedInfo: {
-        avilable: 'true',
-      },
+      avilable: "false"
     });
   };
 
-  componentDidMount(value, page) {
-    this.limit = 3;
-    console.log(value)
+  componentDidMount(value =``, page) {
+    this.limit = 4;
+    // console.log(this.state.cookie)
+    console.log(this.value)
     console.log(page)
+    console.log(this.state.avilable)
+  // birming
+  // k9
     // console.log(this.avilable)
     // this.setState({
     //   sortedInfo: "true"
     // });
     // console.log(this.state.mylist.serchValue)
-    // const url = `http://localhost:5000/api/dogs/&type=&${value}=&avilable=false`
-    const url = `http://localhost:5000/api/dogs/?page=${page}&limit=4&location=${value}&avilable=true`
+
+    const url = `http://localhost:5000/api/dogs/?page=${page}&limit=${this.limit}&avilable=${this.state.avilable}&location=${value}&type=${value}`
     fetch(url)
       // .then(response => response.status())
       .then(response => response.json())
       .then(data => {
         console.log(data)
+        // const token =   cookie.load("token")
+        // console.log("this is my tokne",token)
+        // const [cookies, setCookie] = useCookies(['token']);
         this.setState({ posts: data })
       })
       .catch(err => console.log("Error fetching articles"));
@@ -149,7 +152,6 @@ class GridView extends React.Component {
           <Col span={2}>
             <PostCard {...post} />
           </Col>
-
         </div>
       )
     });
@@ -162,6 +164,8 @@ class GridView extends React.Component {
               <Button onClick={this.checkIfAvilable}>Avilable</Button>
               <Button onClick={this.clearFilters}>Clear filters</Button>
               <Button onClick={this.clearAll}>Clear filters and sorters</Button>
+              {/* <Switch checked={this.checkIfAvilable} onChange={this.checkIfAvilable} /> */}
+
               {/* <SearchBar/>   */}
               <div>
                 <AppBar position="static">

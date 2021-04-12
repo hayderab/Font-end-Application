@@ -41,11 +41,9 @@ const home =  () => {
       <Layout className="layout">
       <React.Fragment    >
       {/* <SearchBar/> */}
-
           <CssBaseline />
             <Container maxWidth="fixed">
             <GridView />
-
               {/* {<DynamicGridLayout/>} */}
           </Container >
       </React.Fragment>

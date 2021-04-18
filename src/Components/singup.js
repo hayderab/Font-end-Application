@@ -99,11 +99,8 @@ class Login extends React.Component {
       .then(data => {
         // TODO: display success message and/or redirect
         console.log(data);
-        // <Route path='/signin'  component={login}/>
-        // <Route exact path="/">
-        <Redirect to="/" />
-        // </Route>
-        window.location.assign('/login')
+        this.setState({redirect:'/signin'});
+        // window.location.assign('/signin')
         alert("User added")
       })
       .catch(error => {

@@ -43,7 +43,7 @@ class GridView extends React.Component {
 
     this.state = {
       posts: [],
-      current: 0,
+      current: 6,
       limit: 0,
       serchValue: "",
       prevPage:1,
@@ -106,23 +106,14 @@ class GridView extends React.Component {
     console.log(this.value)
     console.log(page)
     console.log(this.state.avilable)
-  // birming
-  // k9
-    // console.log(this.avilable)
-    // this.setState({
-    //   sortedInfo: "true"
-    // });
-    // console.log(this.state.mylist.serchValue)
-
     const url = `http://localhost:5000/api/dogs/?page=${page}&limit=${this.limit}&avilable=${this.state.avilable}&location=${value}&type=${value}`
+    //const url = `http://localhost:5000/api/dogs/?page=${page}&avilable=${this.state.avilable}&location=${value}&type=${value}`
+
     fetch(url)
       // .then(response => response.status())
       .then(response => response.json())
       .then(data => {
         console.log(data)
-        // const token =   cookie.load("token")
-        // console.log("this is my tokne",token)
-        // const [cookies, setCookie] = useCookies(['token']);
         this.setState({ posts: data })
       })
       .catch(err => console.log("Error fetching articles"));
@@ -136,16 +127,7 @@ class GridView extends React.Component {
     }
     // the next line does the Array.map() operation on the posts
     // to create an array of React elements to be rendered
-
     const cardList = this.state.posts
-    // .filter(post =>{
-    //   if (this.state.serchValue == ""){
-    //     return post
-    //   }
-    //   else if (post.type.toLowerCase().includes(this.state.serchValue)){
-    //     return post
-    //   }
-    // })
     .map(post => {
       return (
         <div style={{ padding: "10px" }} key={post._id}>
@@ -165,7 +147,6 @@ class GridView extends React.Component {
               <Button onClick={this.clearFilters}>Clear filters</Button>
               <Button onClick={this.clearAll}>Clear filters and sorters</Button>
               {/* <Switch checked={this.checkIfAvilable} onChange={this.checkIfAvilable} /> */}
-
               {/* <SearchBar/>   */}
               <div>
                 <AppBar position="static">
@@ -184,7 +165,7 @@ class GridView extends React.Component {
           {cardList}
         </Row>
         <Col>
-          <Pagination current={this.state.current} onChange={this.onChange} total={30} />
+          <Pagination current={this.state.current} onChange={this.onChange}  total={30} />
         </Col>
       </div>
     );

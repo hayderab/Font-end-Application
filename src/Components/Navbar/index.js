@@ -70,7 +70,13 @@ const Navbar = (props) => {
                 <Button size="1px" type="dashed" ghost>Add Dog</Button>
               </Link>
             </Menu.Item>
+            <Menu.Item key="2" style={{ backgroundColor: "transparent" }}>
+              <Link to="/message">
+               Message
+              </Link>
+            </Menu.Item>
           </Menu>
+          
         </Header>
       </>
     )
@@ -90,6 +96,11 @@ const Navbar = (props) => {
             <Menu.Item key="2" style={{ backgroundColor: "transparent" }}>
               <Link to="/favourite">
                Favourite
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="2" style={{ backgroundColor: "transparent" }}>
+              <Link to="/message">
+               Message
               </Link>
             </Menu.Item>
           </Menu>

@@ -116,7 +116,7 @@ class GridView extends React.Component {
         console.log(data)
         this.setState({ posts: data })
       })
-      .catch(err => console.log("Error fetching articles"));
+      .catch(err => console.log("Error fetching dogs"));
 
   }
   render() {

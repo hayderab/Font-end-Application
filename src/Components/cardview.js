@@ -37,6 +37,8 @@ class CardView extends React.Component {
     super();
     this.state = {
       show: false,
+      fileSelected: null
+
     };
   }
 
@@ -59,6 +61,12 @@ class CardView extends React.Component {
     });
   };
 
+
+  SelectFile = event => {
+    this.setState({
+        fileSelected: event.target.files[0]
+    });
+  }
   addFav  = () =>{
     alert(this.props._id);
     fetch(`http://localhost:5000/api/users/addtofav/${this.props._id}`,
@@ -104,14 +112,22 @@ class CardView extends React.Component {
   onFinish = values => {
     console.log('Received values of form: ', values);
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
+    const fd = new FormData();
+    fd.append("_id", this.props._id)
+    fd.append("name", values.name)
+    fd.append("type", values.type)
+    fd.append("location", values.location)
+    fd.append("avilable", values.avilable)
+    fd.append("imageUrl", this.state.fileSelected)
     const url = 'http://localhost:5000/api/dogs/update/' + this.props._id;
     fetch(url, {
       credentials: 'include',
       method: 'PUT',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      // body: JSON.stringify(data),
+        body: fd
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // }
     })
       .then(data => {
         // TODO: display success message and/or redirect
@@ -166,7 +182,6 @@ class CardView extends React.Component {
                  src= {`http://localhost:5000/${this.props.imageUrl}`}
 
                 />
-
             }
             actions={[
               <EditOutlined key="edit" onClick={this.showModal} />,
@@ -183,8 +198,8 @@ class CardView extends React.Component {
 
             <>
               <Modal title="Update Dogs" visible={this.state.visible} onOk={this.hideModal} onCancel={this.hideModal}>
-                <Form {...layout} name="nest-messages" onFinish={this.onFinish} validateMessages={validateMessages}>
-                  <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+                <Form {...layout} name="nest-messages" onFinish={this.onFinish} validateMessages={validateMessages} encType="multipart/form-data">
+                  <Form.Item name="name" label="Name" rules={[{ required: true }]} >
                     <Input />
                   </Form.Item>
                   <Form.Item name="type" label="Type" rules={[{ type: "string" }]}>
@@ -202,6 +217,15 @@ class CardView extends React.Component {
                   <Form.Item name="avilable" label="Avilable" rules={[{ type: "string" }]}>
                     <Input />
                   </Form.Item>
+                  <Form.Item >
+                            <input
+                            type="file" 
+                            fileName="imgeUrl" 
+                            onChange={this.SelectFile} 
+                            className="form-control-file"
+                             />
+                            {/* <Button onClick={this.fileUpload}>test</Button> */}
+                    </Form.Item>
                   <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                     <Button type="primary" htmlType="submit"  >
                       Submit

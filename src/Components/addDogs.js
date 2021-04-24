@@ -9,6 +9,7 @@ import React, { Component } from 'react'
 import 'antd/dist/antd.css';
 import { Form, Input, Select, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import "../App.css"
 
 
 const useStyles = (theme) => ({

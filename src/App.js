@@ -7,7 +7,7 @@ import home from "./Components/home";
 import login from "./Components/login";
 import addDogs from "./Components/addDogs"
 import favView from "./Components/favourites/favView"
-
+import Message from "./Components/messaging"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import UserContext from './contexts/user';
 
@@ -112,6 +112,7 @@ export class App extends Component {
             <Route path='/sign-up' component={signup} />
             <Route path='/signin' component={login} />
             <Route path='/favourite' component={favView} />
+            <Route path='/message' component={Message} />
             {/* <Route path='/logout'/> */}
           </Content>
         </Router>

@@ -2,7 +2,7 @@
 // import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
-import { EditOutlined, SettingOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, SettingOutlined,EllipsisOutlined, DeleteOutlined } from '@ant-design/icons';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 // import { makeStyles } from '@material-ui/core/styles';
 // import IconButton from '@material-ui/core/IconButton';
@@ -56,8 +56,20 @@ class CardView extends React.Component {
       visible: false,
     });
   };
-
-
+   
+  info = () =>{
+    Modal({
+      title: 'This is a notification message',
+      content: (
+        <div>
+          <p>some messages...some messages...</p>
+          <p>some messages...some messages...</p>
+        </div>
+      ),
+      onOk() {},
+    });
+  };
+   
   SelectFile = event => {
     this.setState({
       fileSelected: event.target.files[0]
@@ -256,7 +268,7 @@ class CardView extends React.Component {
 
           }
           actions={[
-            <SettingOutlined key="setting" />,
+            <EllipsisOutlined key="setting" />,
             <FavoriteIcon key="fav" onClick={this.addFav} />
           ]}
         >

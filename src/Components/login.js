@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { Form, Input, Button } from 'antd';
 import UserContext from '../contexts/user';
-import { BrowserRouter as  Redirect } from 'react-router-dom'
+import {Redirect } from 'react-router-dom'
 
  
 
@@ -196,7 +196,7 @@ class LoginForm extends React.Component {
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
     // console.log(`logging in email: ${email}`)
 
-    fetch('http://localhost:5000/api/auth',{
+    fetch('http://localhost:5000/api/users/login',{
       credentials: 'include',
       method: 'POST',
       body:JSON.stringify(data), 
@@ -213,7 +213,7 @@ class LoginForm extends React.Component {
         }
         else{
           this.setState({redirect:'/'});
-          console.log(user.sigupcode);
+          // console.log(user.sigupcode);
           this.context.login(user);
         }
     })

@@ -37,7 +37,7 @@ const home =  () => {
               {/* {<DynamicGridLayout/>} */}
           </Container >
       </React.Fragment>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer style={{ textAlign: 'center' }}> ©2021 Created by Coventry student</Footer>
     </Layout>
     </div>
 

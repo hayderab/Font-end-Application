@@ -35,7 +35,7 @@ export class App extends Component {
     console.log("User is now being set on the context");
     // console.log("getting user data from state", user)
     console.log("this is the database")
-    fetch('http://localhost:5000/api/auth/logedin', {
+    fetch('http://localhost:5000/api/users/loggedin', {
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify(),
@@ -81,7 +81,7 @@ export class App extends Component {
       });
   }
   logout() {
-    fetch('http://localhost:5000/api/auth/logout', {
+    fetch('http://localhost:5000/api/users/logout', {
       credentials: 'include',
       method: 'GET',
       body: JSON.stringify(),

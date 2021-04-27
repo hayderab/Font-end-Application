@@ -1,34 +1,10 @@
 import React from 'react';
 // import { Col, Row ,Space} from 'antd';
 import FavCard from './favCard';
-import { Pagination, Switch, Button, Space, Col, Row, Input } from 'antd';
+import {Space, Col, Row } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { instanceOf } from 'prop-types';
-
-const { Search } = Input;
 
 
-
-
-const useStyles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    float: "right",
-    background: "#f1f2f5"
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-});
 
 
 class FavGrid extends React.Component {

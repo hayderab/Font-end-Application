@@ -4,9 +4,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import {withStyles } from '@material-ui/core/styles';
 
 import { Input, Space } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
-import GridView from "./gridView"
-import Grid from 'antd/lib/card/Grid';
 const { Search } = Input;
 const useStyles = (theme) => ({
   root: {
@@ -26,16 +23,6 @@ const useStyles = (theme) => ({
   },
 });
 
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1890ff',
-      width:"30px",
-    }}
-  />
-);
-
 class SearchBar extends React.Component {
 
 
@@ -48,7 +35,6 @@ class SearchBar extends React.Component {
     
   onSearch = value => {
     console.log(value);
-    value = value;
   }
   render() {
     const { classes } = this.props;

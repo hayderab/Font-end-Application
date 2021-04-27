@@ -8,10 +8,14 @@ import login from "./Components/login";
 import addDogs from "./Components/addDogs"
 import favView from "./Components/favourites/favView"
 import Message from "./Components/messaging"
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import UserContext from './contexts/user';
 
-const { Header, Content, Footer } = Layout;
+const {Content } = Layout;
+
+/**
+ * @constructor App
+ */
 export class App extends Component {
 
   constructor(props) {
@@ -42,17 +46,18 @@ export class App extends Component {
       .then(response => response.json())
       .then(user => {
         // console.log(user.sigupcode);
-        console.log("user Loged in", user);
-        if (user.sigupcode == true && user.login == true) {
-          console.log("user Loged in", true);
+        console.log("user Logged in", user);
+        if (user.sigupcode === true && user.login === true) {
+          console.log("user Logged in", true);
           this.state.user = { loggedIn: true }
+        
           this.setState({
             user: {
               sigupcode: true,
               loggedIn: true
             }
           });
-        } else if (user.login == true) {
+        } else if (user.login === true) {
           this.state.user = { loggedIn: true }
           this.setState({
             user: {

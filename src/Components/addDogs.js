@@ -1,4 +1,3 @@
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -7,8 +6,7 @@ import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import React, { Component } from 'react'
 import 'antd/dist/antd.css';
-import { Form, Input, Select, Upload, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Select} from 'antd';
 import "../App.css"
 
 
@@ -33,13 +31,6 @@ const useStyles = (theme) => ({
 });
 
 
-const onFinish = (values) => {
-    console.log('Success:', values); // makesure the name each json object key is the same with backend
-};
-
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo); // makesure the name each json object key is the same with backend
-};
 
 const layout = {
     labelCol: {
@@ -126,7 +117,6 @@ class AddDogs extends Component {
         fd.append("avilable", values.avilable)
         fd.append("imageUrl", this.state.fileSelected)
         console.log(fd)
-        const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
         // fd.append("imageUrl", this.state.fileSelected, this.state.fileSelected.name);
         fetch('http://localhost:5000/api/dogs',{
             credentials: 'include',
@@ -136,8 +126,8 @@ class AddDogs extends Component {
         .then(response => response.json())
         .then(data => {
                 // TODO: display success message and/or redirect
-                if(data.status== 403){
-                    alert("errr")
+                if(data.status=== 403){
+                    alert("error adding data, try again.")
                 }
                 console.log(data);
                 window.location.assign('/')
@@ -196,9 +186,15 @@ class AddDogs extends Component {
                         <Form.Item name="type" label="Type"  >
                             <Input />
                         </Form.Item>
-                        <Form.Item name="location" label="Location">
-                            <Input />
-                        </Form.Item>
+                        <Form.Item name="location" label="Select">
+                        <Select>
+                        <Select.Option value="Coventry">Coventry</Select.Option>
+                        <Select.Option value="London">London</Select.Option>
+                        <Select.Option value="Birmingham">Birmingham</Select.Option>
+                        <Select.Option value="Luton">Luton</Select.Option>
+                        <Select.Option value="Bradford">Bradford</Select.Option>
+                        </Select>
+                    </Form.Item>
                         <Form.Item name="avilable" label="Select">
                             <Select>
                                 <Select.Option value="true">True</Select.Option>

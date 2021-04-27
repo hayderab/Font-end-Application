@@ -1,35 +1,17 @@
 import React from 'react';
 // import { Col, Row ,Space} from 'antd';
 import PostCard from './cardview';
-import { Pagination, Switch, Button, Space, Col, Row, Input } from 'antd';
+import { Pagination, Button, Space, Col, Row, Input } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import SearchBar from "./searchbar.js";
-import { instanceOf } from 'prop-types';
+
 
 const { Search } = Input;
 
 
 
 
-const useStyles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    float: "right",
-    background: "#f1f2f5"
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-});
 
 
 class GridView extends React.Component {
@@ -47,11 +29,19 @@ class GridView extends React.Component {
       limit: 0,
       serchValue: "",
       prevPage:1,
+      sort: 1,
       prevValue:"",
-      avilable:true,
+      avilable:"true",
       filteredInfo: null,
       sortedInfo: null,
     };
+
+  }
+  latest = () =>{
+    this.setState({
+      sort: -1
+    });
+    this.componentDidMount(this.state.prevValue, this.state.prevPage, this.state.sort);
 
   }
 
@@ -72,9 +62,6 @@ class GridView extends React.Component {
   onChange = page => {
     this.componentDidMount(this.state.prevValue, page)
 
-    // this.componentDidMount(this.state.mylist)
-    // console.log(page);
-    // console.log(this.state.test);
     this.setState({
       current: page,
       prevPage: page
@@ -101,14 +88,9 @@ class GridView extends React.Component {
   };
 
   componentDidMount(value =``, page) {
-    this.limit = 4;
-    // console.log(this.state.cookie)
-    console.log(this.value)
-    console.log(page)
-    console.log(this.state.avilable)
-    const url = `http://localhost:5000/api/dogs/?page=${page}&limit=${this.limit}&avilable=${this.state.avilable}&location=${value}&type=${value}`
-    //const url = `http://localhost:5000/api/dogs/?page=${page}&avilable=${this.state.avilable}&location=${value}&type=${value}`
-
+    this.limit = 5;
+    console.log("....", this.state.sort)
+    const url = `http://localhost:5000/api/dogs/?page=${page}&limit=${this.limit}&avilable=${this.state.avilable}&location=${value}&type=${value}&sort=${this.state.sort}`
     fetch(url)
       // .then(response => response.status())
       .then(response => response.json())
@@ -143,10 +125,9 @@ class GridView extends React.Component {
           <>
             <Space style={{ marginBottom: 16 }}>
 
-              <Button onClick={this.checkIfAvilable}>Avilable</Button>
+              <Button onClick={this.checkIfAvilable}>Not Avilable</Button>
+              <Button onClick={this.latest}>Latest</Button>
               <Button onClick={this.clearFilters}>Clear filters</Button>
-              <Button onClick={this.clearAll}>Clear filters and sorters</Button>
-              {/* <Switch checked={this.checkIfAvilable} onChange={this.checkIfAvilable} /> */}
               {/* <SearchBar/>   */}
               <div>
                 <AppBar position="static">
@@ -165,7 +146,7 @@ class GridView extends React.Component {
           {cardList}
         </Row>
         <Col>
-          <Pagination current={this.state.current} onChange={this.onChange}  total={30} />
+          <Pagination current={this.state.current} onChange={this.onChange} total={30} />
         </Col>
       </div>
     );

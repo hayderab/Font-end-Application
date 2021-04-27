@@ -7,13 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { Form, Input, Button, Checkbox } from 'antd';
-import login from "./login";
-import Home  from "./home";
+import { Form, Input, Button } from 'antd';
 import UserContext from '../contexts/user';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as  Redirect } from 'react-router-dom'
 
-import Cookies from 'universal-cookie';
  
 
 
@@ -39,19 +36,10 @@ const emailRules = [
     {required: true, message: 'Please input your E-mail!' }
 ];
 
-const firstName = [
-  { required:true, message: 'First Name' }
-];
-const lastName = [
-  { required:true, message: 'Last Name' }
-];
+
 const passwordRules = [
     { required: true, message: 'Please input your password!' }
 ];
-const sigupCode = [
-  { message: 'Employee Only' }
-];
-
 
 
 // const usernameRules = [
@@ -205,7 +193,6 @@ class LoginForm extends React.Component {
 
     login(values) {
     // console.log('Received values of form: ', values);
-    const {email, password} = values;    // const auth_token = "";
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
     // console.log(`logging in email: ${email}`)
 
@@ -221,7 +208,7 @@ class LoginForm extends React.Component {
     // .then(response => response.json())
     .then(user => {
         // window.location.assign('/')
-        if(user.status == 400){
+        if(user.status === 400){
           alert("invalide credientials")
         }
         else{

@@ -2,20 +2,13 @@
 // import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
-import { EditOutlined, SettingOutlined , DeleteOutlined} from '@ant-design/icons';
-import DeleteIcon from '@material-ui/icons/Favorite';
-import { Modal, Button, Form, Space, Select, Input, InputNumber } from 'antd';
+import {DeleteOutlined} from '@ant-design/icons';
 // import UserContext from '../contexts/user';
 
-import React, { useState, Context } from 'react';
-
-const { Meta } = Card;
+import React from 'react';
 
 
-const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-};
+
 
 class FavCard extends React.Component {
     state = { visible: false };

@@ -1,6 +1,6 @@
 import React from 'react'; 
 import 'antd/dist/antd.css';
-import { Layout} from 'antd';
+import { Layout,PageHeader} from 'antd';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -26,7 +26,9 @@ const home =  () => {
       <header className="App-header">
         {/* <Bar /> */}
         {/* {PostCard} */}
-       
+        <PageHeader style={{ padding: '1% 40%' }} className="site-page-header"
+            title="Dog Shelter"
+            subTitle="looking for new home"/>
       </header>
       <Layout className="layout">
       <React.Fragment    >

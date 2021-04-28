@@ -40,7 +40,6 @@ class CardView extends React.Component {
 
   static contextType = UserContext;
 
-
   showModal = () => {
     this.setState({
       visible: true,
@@ -54,19 +53,6 @@ class CardView extends React.Component {
   hideModal = () => {
     this.setState({
       visible: false,
-    });
-  };
-   
-  info = () =>{
-    Modal({
-      title: 'This is a notification message',
-      content: (
-        <div>
-          <p>some messages...some messages...</p>
-          <p>some messages...some messages...</p>
-        </div>
-      ),
-      onOk() {},
     });
   };
    
@@ -205,11 +191,11 @@ class CardView extends React.Component {
               // <EllipsisOutlined key="ellipsis" />,
             ]}
           >
-            <h1>{this.props.name}</h1>
-            <p>{this.props.type}</p>
-            <p>{this.props.location}</p>
-            <p>{this.props.avilable.toString()}</p>
-            <p>{this.props.dateUpdated}</p>
+           <h1>{this.props.name}</h1>
+            <p>Type:                {this.props.type}</p>
+            <p>Location:            {this.props.location}</p>
+            <p>Avilable:            {this.props.avilable.toString()}</p>
+            <p>Dog Updated:         {this.props.dateUpdated}</p>
 
             <>
               <Modal title="Update Dogs" visible={this.state.visible} onOk={this.hideModal} onCancel={this.hideModal}>
@@ -263,20 +249,18 @@ class CardView extends React.Component {
               onClick={this.clickCard}
               alt="example"
               src={`http://localhost:5000/${this.props.imageUrl}`}
-              // src="https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"
                />
 
           }
           actions={[
-            <EllipsisOutlined key="setting" />,
             <FavoriteIcon key="fav" onClick={this.addFav} />
           ]}
         >
-          <h1>{this.props.name}</h1>
-          <p>{this.props.type}</p>
-          <p>{this.props.location}</p>
-          <p>{this.props.avilable.toString()}</p>
-          <p>{this.props.dateUpdated}</p>
+           <h1>{this.props.name}</h1>
+            <p>Type:                {this.props.type}</p>
+            <p>Location:            {this.props.location}</p>
+            <p>Avilable:            {this.props.avilable.toString()}</p>
+            <p>Dog Updated:         {this.props.dateUpdated}</p>
         </Card>
       </div>
 

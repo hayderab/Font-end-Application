@@ -6,8 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { Form, Input, Button,Select } from 'antd';
-// import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { Form, Input, Button, Select } from 'antd';
+import { Redirect } from 'react-router-dom'
 
 const useStyles = (theme) => ({
   root: {
@@ -83,24 +83,26 @@ class Login extends React.Component {
     super(props);
     this.onFinish = this.onFinish.bind(this);
   }
+  state = {redirect: null}
 
   onFinish = (values) => {
 
     console.log('Received values of form: ', values);
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
     fetch('http://localhost:5000/api/users', {
+      credentials: 'include',
       method: 'POST',
-      body: JSON.stringify(data),
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
+      },
+      body: JSON.stringify(data),
+
+    }).then(response => response.json())
       .then(data => {
         // TODO: display success message and/or redirect
-        console.log(data);
-        this.setState({redirect:'/signin'});
-        // window.location.assign('/signin')
+        this.setState({ redirect: '/signin' });
+        // /window.location.assign('/signin')
         alert("User added")
       })
       .catch(error => {
@@ -110,6 +112,9 @@ class Login extends React.Component {
   };
   render() {
     const { classes } = this.props;
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+      }  
     return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
@@ -129,19 +134,19 @@ class Login extends React.Component {
               <Form.Item name="lastName" label="Last Name" rules={lastName} >
                 <Input />
               </Form.Item>
+              <Form.Item name="location" label="Select">
+                <Select>
+                  <Select.Option value="Coventry">Coventry</Select.Option>
+                  <Select.Option value="London">London</Select.Option>
+                  <Select.Option value="Birmingham">Birmingham</Select.Option>
+                  <Select.Option value="Luton">Luton</Select.Option>
+                  <Select.Option value="Bradford">Bradford</Select.Option>
+                </Select>
+              </Form.Item>
               <Form.Item name="email" label="E-mail" rules={emailRules} >
                 <Input />
               </Form.Item>
-              <Form.Item name="location" label="Select">
-                            <Select>
-                                <Select.Option value="Coventry">Coventry</Select.Option>
-                                <Select.Option value="London">London</Select.Option>
-                                <Select.Option value="Birmingham">Birmingham</Select.Option>
-                                <Select.Option value="Luton">Luton</Select.Option>
-                                <Select.Option value="Bradford">Bradford</Select.Option>
-                            </Select>
-              </Form.Item>
-              <Form.Item name="sigupcode" label="Sign-up Code" rules={sigupCode} hasFeedback >
+              <Form.Item name="sigupcode" label="Sign-up Code">
                 <Input />
               </Form.Item>
               <Form.Item name="password" label="Password" rules={passwordRules} hasFeedback >

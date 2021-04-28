@@ -62,7 +62,6 @@ class CardView extends React.Component {
     });
   }
   addFav = () => {
-    alert(this.props._id);
     fetch(`http://localhost:5000/api/users/addtofav/${this.props._id}`,
       {
         method: 'POST',
@@ -82,28 +81,34 @@ class CardView extends React.Component {
       });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   // Typical usage (don't forget to compare props):
-  //   if (this.props._id !== prevProps._id) {
-  //     console.log(this.props._id)
-  //   }
-  // }
+
 
   onDeleteClick = () => {
     //DELETE using /api/v1/dogs/:id
     const url = 'http://localhost:5000/api/dogs/delete/' + this.props._id;
-    const response = fetch(url, {
+    const  response =  fetch(url, {
       credentials: 'include',
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
+    }).then(data => {
+      // TODO: display success message and/or redirect
+      console.log(data.status);
+      if (data.status === 403) {
+        alert("permission denied")
+      } else {
+        alert(this.props.name + " has been deleted!");
+        window.location.href = "/";
+
+      }
     })
+    .catch(error => {
+      alert(`Error: error}`);
+    });
     // Store response in json format
-    console.log(response);
-    alert(this.props.name + " has been deleted!");
-    window.location.href = "/";
+    
   }
 
 
@@ -150,18 +155,16 @@ class CardView extends React.Component {
     if (!loggedIn) {
       return (
         <div className="site-card-border-less-wrapper">
-          <Card title="Card title" hoverable bordered={false}
+          <Card title={this.props.name} hoverable bordered={false}
             style={{ width: 300 }}
             cover={
               <img
                 onClick={this.clickCard}
                 alt="example"
                 src={`http://localhost:5000/${this.props.imageUrl}`}
-                // src="https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" 
                 />
             }
           >
-            <h1>{this.props.name}</h1>
             <p>Type:                {this.props.type}</p>
             <p>Location:            {this.props.location}</p>
             <p>Avilable:            {this.props.avilable.toString()}</p>
@@ -172,7 +175,7 @@ class CardView extends React.Component {
     } else if (loggedIn === true && sigupCode === true) {
       return (
         <div className="site-card-border-less-wrapper">
-          <Card title="Card title" hoverable bordered={false}
+          <Card title={this.props.name} hoverable bordered={false}
 
             style={{ width: 300 }}
             cover={
@@ -191,7 +194,6 @@ class CardView extends React.Component {
               // <EllipsisOutlined key="ellipsis" />,
             ]}
           >
-           <h1>{this.props.name}</h1>
             <p>Type:                {this.props.type}</p>
             <p>Location:            {this.props.location}</p>
             <p>Avilable:            {this.props.avilable.toString()}</p>
@@ -206,7 +208,7 @@ class CardView extends React.Component {
                   <Form.Item name="type" label="Type" rules={[{ type: "string" }]}>
                     <Input />
                   </Form.Item>
-                  <Form.Item name="location" label="Select">
+                  <Form.Item name="location" label="Location">
                     <Select>
                       <Select.Option value="Coventry">Coventry</Select.Option>
                       <Select.Option value="London">London</Select.Option>
@@ -241,12 +243,11 @@ class CardView extends React.Component {
     }
     return (
       <div className="site-card-border-less-wrapper">
-        <Card title="Card title" hoverable bordered={false}
+        <Card title={this.props.name} hoverable bordered={false}
 
           style={{ width: 300 }}
           cover={
             <img
-              onClick={this.clickCard}
               alt="example"
               src={`http://localhost:5000/${this.props.imageUrl}`}
                />
@@ -256,7 +257,6 @@ class CardView extends React.Component {
             <FavoriteIcon key="fav" onClick={this.addFav} />
           ]}
         >
-           <h1>{this.props.name}</h1>
             <p>Type:                {this.props.type}</p>
             <p>Location:            {this.props.location}</p>
             <p>Avilable:            {this.props.avilable.toString()}</p>

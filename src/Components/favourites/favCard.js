@@ -42,7 +42,7 @@ class FavCard extends React.Component {
                         <img
                             onClick={this.clickCard}
                             alt="example"
-                            src="https://images.unsplash.com/photo-1491604612772-6853927639ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" />
+                            src={`http://localhost:5000/${this.props.imageUrl}`} />
                     }
                     actions={[
                         // <SettingOutlined key="setting" />,

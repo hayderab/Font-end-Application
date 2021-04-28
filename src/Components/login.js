@@ -45,7 +45,7 @@ const passwordRules = [
 // const usernameRules = [
 //     { required: true, message: 'Please input your username!', whitespace: true }
 // ]
-
+//ant desing
 const useStyles = (theme) => ({
   root: {
     height: '100vh',
@@ -78,7 +78,10 @@ const useStyles = (theme) => ({
 });
 
 
-
+/**
+ * Deals wiht user login, makes post request to backend
+ * authenticate user and provide data to context.
+ */
 class LoginForm extends React.Component {
     constructor(props) {
       super(props);

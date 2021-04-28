@@ -1,13 +1,14 @@
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-// import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
 import React, { Component } from 'react'
 import 'antd/dist/antd.css';
 import { Form, Input, Select} from 'antd';
 import "../App.css"
+
+
 
 
 const useStyles = (theme) => ({
@@ -47,6 +48,10 @@ const tailLayout = {
     },
 };
 
+/**
+ * Makes Requests to font end for adding dogs, 
+ * the from data is send to the background along with file.
+ */
 class AddDogs extends Component {
     constructor(props) {
         super(props);
@@ -63,50 +68,6 @@ class AddDogs extends Component {
         });
     }
 
-    // fileUpload = () =>{
-    //     console.log(this.state.fileSelected)
-    //     const fd = new FormData();
-    //     // fd.append("name", values.name)
-    //     // fd.append("type", type)
-    //     // fd.append("location", location)
-    //     // fd.append("avilable", avilable)
-    //     // fd.append("imageUrl", imageUrl)
-    //     fd.append("imageUrl", this.state.fileSelected, this.state.fileSelected.name);
-    //     fetch('http://localhost:5000/api/dogs', {
-    //         credentials: 'include',
-    //         method: 'POST',
-    //         body: fd ,
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // TODO: display success message and/or redirect
-    //             console.log(data);
-    //             window.location.assign('/')
-    //             alert("Dogs added")
-    //         })
-    //         .catch(error => {
-    //             // TODO: show nicely formatted error message and clear form
-    //             alert(`Error: error}`);
-    //         });
-
-    // }
-    // imageprops = {
-    //     name: 'file',
-    //     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    //     headers: {
-    //       authorization: 'authorization-text',
-    //     },
-    //     onChange(info) {
-    //       if (info.file.status !== 'uploading') {
-    //         console.log(info.file, info.fileList);
-    //       }
-    //       if (info.file.status === 'done') {
-    //         message.success(`${info.file.name} file uploaded successfully`);
-    //       } else if (info.file.status === 'error') {
-    //         message.error(`${info.file.name} file upload failed.`);
-    //       }
-    //     },
-    //   };
     
     onFinish = (values) => {
         const fd = new FormData();
@@ -138,38 +99,6 @@ class AddDogs extends Component {
                 alert(`Error: error}`);
             });
     };
-
-    // onFinish = (values) => {
-    //     const fd = new FormData();
-    //     console.log('Received values of form: ', values);
-    //     // console.log(fd)
-    //     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
-    //     fd.append("imageUrl", this.state.fileSelected, this.state.fileSelected.name);
-    //     fetch('http://localhost:5000/api/dogs',{
-    //         credentials: 'include',
-    //         method: 'POST',
-    //         // 
-    //         body: fd, 
-    //         body: JSON.stringify(data),
-    //         // body: data, fd,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         }
-    //     }).then(response => response.json())
-    //         .then(data => {
-    //             // TODO: display success message and/or redirect
-    //             if(data.status== 403){
-    //                 alert("errr")
-    //             }
-    //             console.log(data);
-    //             window.location.assign('/')
-    //             alert("Dogs added")
-    //         })
-    //         .catch(error => {
-    //             // TODO: show nicely formatted error message and clear form
-    //             alert(`Error: error}`);
-    //         });
-    // };
     render() {
         const { classes } = this.props;
         return (
@@ -211,9 +140,6 @@ class AddDogs extends Component {
                             {/* <Button onClick={this.fileUpload}>test</Button> */}
                         </Form.Item>
                         <Form.Item {...tailLayout} >
-                            {/* <Upload {...this.imageprops} {...tailLayout}>
-                                <Button icon={<UploadOutlined/>}>Click to Upload Image</Button>
-                            </Upload> */}
                             <Button type="primary" fullWidth variant="contained" htmlType="submit" color="Black" className={classes.submit}>
                                 Add Dog
                             </Button>

@@ -15,6 +15,10 @@ const {Content } = Layout;
 
 /**
  * @constructor App
+ * Deals wiht all the aruthrization, makes reques to backend to see if user logged in
+ * and get sigupcode/login true or flase, this is then proivde to context of hiding and 
+ * showing components. 
+ * Also deals with all the code relatd to links of different pages.
  */
 export class App extends Component {
 

@@ -1,11 +1,7 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Card } from 'antd';
-import { EditOutlined, SettingOutlined,EllipsisOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-// import { makeStyles } from '@material-ui/core/styles';
-// import IconButton from '@material-ui/core/IconButton';
 import { Modal, Button, Form, Select, Input} from 'antd';
 import UserContext from '../contexts/user';
 
@@ -26,6 +22,11 @@ const validateMessages = {
 
 };
 
+/**
+ * Shows all the dogs info, accessed from backend, 
+ * allow user to add modify dogs based on permission, 
+ * normal user can add favourits..
+ */
 class CardView extends React.Component {
   state = { visible: false };
 

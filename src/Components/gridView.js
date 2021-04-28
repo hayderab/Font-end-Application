@@ -12,7 +12,11 @@ const { Search } = Input;
 
 
 
-
+/**
+ * Get dogs based on user query and send the data to cardview
+ * as porps, the multiple card are disaplyed based on number of array
+ * elements..
+ */
 
 class GridView extends React.Component {
 

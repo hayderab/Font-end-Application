@@ -47,7 +47,10 @@ const formItemLayout = {
 const tailFormItemLayout = {
   wrapperCol: { xs: { span: 24, offset: 0 }, sm: { span: 16, offset: 6 } },
 };
-
+/**
+ * Reference: Validation code is used from labs along
+ *  with other stracture then build everthing upon that
+ */
 const emailRules = [
   { type: 'email', message: 'The input is not valid E-mail!' },
   { required: true, message: 'Please input your E-mail!' }
@@ -78,6 +81,11 @@ const confirmRules = [
   })
 ];
 
+
+/**
+ * deals with creating user account, send post request to users, 
+ * 
+ */
 class Login extends React.Component {
   constructor(props) {
     super(props);

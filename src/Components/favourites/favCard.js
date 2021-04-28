@@ -8,7 +8,10 @@ import {DeleteOutlined} from '@ant-design/icons';
 import React from 'react';
 
 
-
+/**
+ * Shows the user favourites. Gets data from favGrid 
+ * as prop and maps on multiple cards.
+ */
 
 class FavCard extends React.Component {
     state = { visible: false };
@@ -18,7 +21,9 @@ class FavCard extends React.Component {
             show: false,
         };
     }
-
+   /**
+    * show or hide component.
+    */
     showModal = () => {
         this.setState({
             visible: true,

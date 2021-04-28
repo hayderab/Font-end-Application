@@ -79,7 +79,7 @@ class AddDogs extends Component {
         fd.append("imageUrl", this.state.fileSelected)
         console.log(fd)
         // fd.append("imageUrl", this.state.fileSelected, this.state.fileSelected.name);
-        fetch('http://localhost:5000/api/dogs',{
+        fetch('https://fast-couple-5000.codio-box.uk/api/dogs',{
             credentials: 'include',
             method: 'POST',
             body: fd

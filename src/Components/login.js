@@ -97,9 +97,10 @@ class LoginForm extends React.Component {
     const { confirm, ...data } = values;  // ignore the 'confirm' value in data sent
     // console.log(`logging in email: ${email}`)
 
-    fetch('http://localhost:5000/api/users/login',{
+    fetch('https://fast-couple-5000.codio-box.uk/api/users/login',{
       credentials: 'include',
       method: 'POST',
+      mode: 'cors',
       body:JSON.stringify(data), 
       headers: {
         'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Card, Form, List, Row, Col, Input, Button } from 'antd';
-import "./ChatPage.css";
+// import "./ChatPage.css";
 import "../App.css"
 import { LoadingOutlined, DeleteOutlined } from '@ant-design/icons';
 import UserContext from '../contexts/user';
@@ -48,7 +48,7 @@ class ChatPage extends Component {
     console.log(this.state.id)
     var msg = { "topic": "breed", "text": this.state.value }
     console.log(msg)
-    const url = "http://localhost:5000/api/message/createmessage/?id=6070d30102d9053060a0998d";
+    const url = "https://fast-couple-5000.codio-box.uk/api/message/createmessage/?id=6070d30102d9053060a0998d";
     fetch(url, {
       credentials: 'include',
       method: 'POST',
@@ -66,7 +66,7 @@ class ChatPage extends Component {
 
   getMessage() {
     // const url = "http://localhost:5000/api/message/getMessage/?id=6070d30102d9053060a0998d"
-    const url = "http://localhost:5000/api/message/getMessage/"
+    const url = "https://fast-couple-5000.codio-box.uk/api/message/getMessage/"
     fetch(url, {
       credentials: "include",
     }).then(response => response.json())

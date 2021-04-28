@@ -63,7 +63,7 @@ class CardView extends React.Component {
     });
   }
   addFav = () => {
-    fetch(`http://localhost:5000/api/users/addtofav/${this.props._id}`,
+    fetch(`https://fast-couple-5000.codio-box.uk/api/users/addtofav/${this.props._id}`,
       {
         method: 'POST',
         credentials: "include"
@@ -86,7 +86,7 @@ class CardView extends React.Component {
 
   onDeleteClick = () => {
     //DELETE using /api/v1/dogs/:id
-    const url = 'http://localhost:5000/api/dogs/delete/' + this.props._id;
+    const url = 'https://fast-couple-5000.codio-box.uk/api/dogs/delete/' + this.props._id;
     const  response =  fetch(url, {
       credentials: 'include',
       method: 'DELETE',
@@ -124,7 +124,7 @@ class CardView extends React.Component {
     fd.append("location", values.location)
     fd.append("avilable", values.avilable)
     fd.append("imageUrl", this.state.fileSelected)
-    const url = 'http://localhost:5000/api/dogs/update/' + this.props._id;
+    const url = 'https://fast-couple-5000.codio-box.uk/api/dogs/update/' + this.props._id;
     fetch(url, {
       credentials: 'include',
       method: 'PUT',
@@ -162,7 +162,7 @@ class CardView extends React.Component {
               <img
                 onClick={this.clickCard}
                 alt="example"
-                src={`http://localhost:5000/${this.props.imageUrl}`}
+                src={`https://fast-couple-5000.codio-box.uk${this.props.imageUrl}`}
                 />
             }
           >
@@ -184,7 +184,7 @@ class CardView extends React.Component {
                 onClick={this.clickCard}
                 alt="example"
                 // src="http://localhost:5000/uploads/1618693523270dogs.jpg" 
-                src={`http://localhost:5000/${this.props.imageUrl}`}
+                src={`https://fast-couple-5000.codio-box.uk/${this.props.imageUrl}`}
 
               />
             }
@@ -250,7 +250,7 @@ class CardView extends React.Component {
           cover={
             <img
               alt="example"
-              src={`http://localhost:5000/${this.props.imageUrl}`}
+              src={`https://fast-couple-5000.codio-box.uk/${this.props.imageUrl}`}
                />
 
           }

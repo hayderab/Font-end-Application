@@ -69,7 +69,7 @@ class FavGrid extends React.Component {
   componentDidMount() {
     this.limit = 4;
     // console.log(this.state.cookie)
-    const url = `http://localhost:5000/api/users/getfav`
+    const url = `https://fast-couple-5000.codio-box.uk/api/users/getfav`
     fetch(url, {credentials:"include"})
       // .then(response => response.status())
       .then(response => response.json())

@@ -94,7 +94,7 @@ class GridView extends React.Component {
   componentDidMount(value =``, page) {
     this.limit = 5;
     console.log("....", this.state.sort)
-    const url = `http://localhost:5000/api/dogs/?page=${page}&limit=${this.limit}&avilable=${this.state.avilable}&location=${value}&type=${value}&sort=${this.state.sort}`
+    const url = `https://fast-couple-5000.codio-box.uk/api/dogs/?page=${page}&limit=${this.limit}&avilable=${this.state.avilable}&location=${value}&type=${value}&sort=${this.state.sort}`
     fetch(url)
       // .then(response => response.status())
       .then(response => response.json())
